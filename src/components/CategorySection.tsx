@@ -1,6 +1,8 @@
 import type { ServiceItem, ServiceCategory } from "@/lib/catalog";
+import { formatNaira } from "@/lib/catalog";
 import { buildWhatsAppLink, inquiryMessage } from "@/lib/whatsapp";
-import { MessageCircle } from "lucide-react";
+import { startPaystackCheckout } from "@/lib/payment";
+import { MessageCircle, CreditCard } from "lucide-react";
 
 function ServiceCard({
   item,
@@ -10,7 +12,17 @@ function ServiceCard({
   categoryTitle: string;
 }) {
   const Icon = item.icon;
-  const link = buildWhatsAppLink(inquiryMessage(item.name, categoryTitle));
+  const inquiryLink = buildWhatsAppLink(
+    inquiryMessage(item.name, categoryTitle)
+  );
+
+  const handlePay = () => {
+    if (item.tier === "fixed" && item.price) {
+      startPaystackCheckout(item.name, item.price);
+    }
+  };
+
+  const isFixed = item.tier === "fixed" && item.price !== undefined;
 
   return (
     <div className="group relative rounded-2xl card-grad border border-white/8 hover:border-white/20 p-5 transition-all duration-300 hover:-translate-y-1">
@@ -36,24 +48,54 @@ function ServiceCard({
       <h3 className="text-sm md:text-base font-bold text-white leading-snug mb-2">
         {item.name}
       </h3>
-      <p className="text-xs md:text-sm text-gray-400 leading-relaxed mb-5 line-clamp-4">
+      <p className="text-xs md:text-sm text-gray-400 leading-relaxed mb-4 line-clamp-4">
         {item.description}
       </p>
 
+      {/* Price label */}
+      <div className="mb-3">
+        {isFixed ? (
+          <span className="text-lg font-extrabold text-white">
+            {formatNaira(item.price!)}
+          </span>
+        ) : (
+          <span className="text-sm font-semibold text-gray-500 italic">
+            Rate on Inquiry
+          </span>
+        )}
+      </div>
+
       {/* Actions */}
       <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/5">
-        <span className="text-[11px] font-medium text-gray-500 uppercase tracking-wide">
-          Rate on inquiry
-        </span>
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
-        >
-          <MessageCircle className="w-3.5 h-3.5" />
-          Inquire / Order
-        </a>
+        {isFixed ? (
+          <span className="text-[10px] font-bold text-accent uppercase tracking-wide">
+            Fixed Price
+          </span>
+        ) : (
+          <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">
+            Custom Quote
+          </span>
+        )}
+
+        {isFixed ? (
+          <button
+            onClick={handlePay}
+            className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
+          >
+            <CreditCard className="w-3.5 h-3.5" />
+            Pay & Order
+          </button>
+        ) : (
+          <a
+            href={inquiryLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            Inquire
+          </a>
+        )}
       </div>
     </div>
   );

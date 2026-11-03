@@ -68,9 +68,9 @@ export default function Hero() {
           </h2>
 
           <p className="mt-6 text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed animate-slide-up">
-            Every digital tool you need — voice mods, VPNs, AI generators,
-            social boosts, verification, crypto tools, and more. No fixed
-            prices, no nonsense. You need it, I got it. DM to move.
+            Your trusted hub for premium digital tools, advanced setups,
+            verification, and growth services. Professional delivery, zero
+            hassle. You need it, I got it. DM to move.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center animate-slide-up">

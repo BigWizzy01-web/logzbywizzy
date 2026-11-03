@@ -1,5 +1,5 @@
 import {
-  Video,
+  Monitor,
   Smartphone,
   Mic,
   AudioLines,
@@ -15,8 +15,11 @@ import {
   ShieldAlert,
   MessageSquare,
   Package,
+  Video,
   type LucideIcon,
 } from "lucide-react";
+
+export type PriceTier = "fixed" | "inquiry";
 
 export interface ServiceItem {
   name: string;
@@ -24,6 +27,8 @@ export interface ServiceItem {
   icon: LucideIcon;
   emoji: string;
   accent: string;
+  tier: PriceTier;
+  price?: number;
 }
 
 export interface ServiceCategory {
@@ -47,9 +52,11 @@ export const categories: ServiceCategory[] = [
         name: "Ultimate Real-Time Video Transmission & Voice Modifier Engine",
         description:
           "Live video & voice changing setup for real-time calls.",
-        icon: Video,
-        emoji: "🎥",
+        icon: Monitor,
+        emoji: "🖥️",
         accent: "#00e676",
+        tier: "fixed",
+        price: 180000,
       },
       {
         name: "Ultimate Mobile Live Video Transmission & Vocal Modifier — Single-Phone Setup",
@@ -58,6 +65,8 @@ export const categories: ServiceCategory[] = [
         icon: Smartphone,
         emoji: "📱",
         accent: "#00e676",
+        tier: "fixed",
+        price: 100000,
       },
       {
         name: "Physical Voice Changer Device Kit",
@@ -66,6 +75,8 @@ export const categories: ServiceCategory[] = [
         icon: Mic,
         emoji: "🎙️",
         accent: "#00e676",
+        tier: "fixed",
+        price: 120000,
       },
       {
         name: "New Celebrity Voice Clone Update / Play.HT v2",
@@ -74,6 +85,7 @@ export const categories: ServiceCategory[] = [
         icon: AudioLines,
         emoji: "🎧",
         accent: "#00e676",
+        tier: "inquiry",
       },
     ],
   },
@@ -91,6 +103,7 @@ export const categories: ServiceCategory[] = [
         icon: ShieldCheck,
         emoji: "🛡️",
         accent: "#2979ff",
+        tier: "inquiry",
       },
     ],
   },
@@ -107,6 +120,8 @@ export const categories: ServiceCategory[] = [
         icon: Sparkles,
         emoji: "✨",
         accent: "#b388ff",
+        tier: "fixed",
+        price: 30000,
       },
       {
         name: "Undressing Tool & Custom Picture Edits",
@@ -115,6 +130,7 @@ export const categories: ServiceCategory[] = [
         icon: ImageIcon,
         emoji: "🖼️",
         accent: "#b388ff",
+        tier: "inquiry",
       },
     ],
   },
@@ -132,6 +148,7 @@ export const categories: ServiceCategory[] = [
         icon: Target,
         emoji: "🎯",
         accent: "#ff6d00",
+        tier: "inquiry",
       },
       {
         name: "Social Media Boosting & Engagement",
@@ -140,6 +157,7 @@ export const categories: ServiceCategory[] = [
         icon: TrendingUp,
         emoji: "📈",
         accent: "#ff6d00",
+        tier: "inquiry",
       },
     ],
   },
@@ -157,6 +175,7 @@ export const categories: ServiceCategory[] = [
         icon: Phone,
         emoji: "📞",
         accent: "#00b8d4",
+        tier: "inquiry",
       },
       {
         name: "Prepaid & Monthly eSIMs Available: USA, Canada, UK",
@@ -164,6 +183,7 @@ export const categories: ServiceCategory[] = [
         icon: Globe,
         emoji: "🌍",
         accent: "#00b8d4",
+        tier: "inquiry",
       },
       {
         name: "Freshly Available Working Profiles & Formats",
@@ -172,6 +192,8 @@ export const categories: ServiceCategory[] = [
         icon: BadgeCheck,
         emoji: "✅",
         accent: "#00b8d4",
+        tier: "fixed",
+        price: 30000,
       },
     ],
   },
@@ -188,13 +210,16 @@ export const categories: ServiceCategory[] = [
         icon: Wallet,
         emoji: "💰",
         accent: "#ffb300",
+        tier: "inquiry",
       },
       {
-        name: "Scam Recovery Update / Collins Macdonald Full Update",
+        name: "Scam Recovery Update / Macdonald Full Update",
         description: "Complete recovery guide & format update — latest version.",
         icon: ShieldAlert,
         emoji: "⚠️",
         accent: "#ffb300",
+        tier: "fixed",
+        price: 30000,
       },
       {
         name: "Fake Chat Proof Generators: WhatsApp, IG, TikTok, Bank Receipts, PayPal, Zelle",
@@ -203,6 +228,7 @@ export const categories: ServiceCategory[] = [
         icon: MessageSquare,
         emoji: "💬",
         accent: "#ffb300",
+        tier: "inquiry",
       },
       {
         name: "Courier & Shipping Tracking Services: FedEx, UPS, DHL",
@@ -210,7 +236,12 @@ export const categories: ServiceCategory[] = [
         icon: Package,
         emoji: "📦",
         accent: "#ffb300",
+        tier: "inquiry",
       },
     ],
   },
 ];
+
+export function formatNaira(amount: number): string {
+  return `₦${amount.toLocaleString("en-NG")}`;
+}
