@@ -18,7 +18,7 @@ function ServiceCard({
 
   const handlePay = () => {
     if (item.tier === "fixed" && item.price) {
-      startPaystackCheckout(item.name, item.price);
+      void startPaystackCheckout(item.name, item.price);
     }
   };
 
