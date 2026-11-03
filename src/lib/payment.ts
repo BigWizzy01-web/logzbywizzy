@@ -1,6 +1,6 @@
 import { buildWhatsAppLink } from "./whatsapp";
 
-const PAYSTACK_PUBLIC_KEY = "pk_test_9f42494ac5f67aa1570271";
+const PAYSTACK_PUBLIC_KEY = "pk_test_9f42494c5f67faa1570271969db7f28b7c772601";
 const PAYSTACK_SCRIPT_URL = "https://js.paystack.co/v1/inline.js";
 
 declare global {
