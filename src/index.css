@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #0a0a0b;
+    --color-bg-card: #141416;
+    --color-bg-card-hover: #1a1a1d;
+    --color-accent: #00e676;
+    --color-accent-dim: #00c853;
+    --color-gold: #ffb300;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #0a0a0b;
+    color: #e5e5e5;
+  }
+}
+
+@layer utilities {
+  .text-accent { color: #00e676; }
+  .text-gold { color: #ffb300; }
+  .bg-accent { background-color: #00e676; }
+  .border-accent { border-color: #00e676; }
+
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
+  }
+  .glow-accent-strong {
+    box-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
+  }
+
+  .card-grad {
+    background: linear-gradient(145deg, #141416 0%, #1a1a1d 100%);
+  }
+
+  .hero-grad {
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,230,118,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,179,0,0.06) 0%, transparent 50%);
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,230,118,0.15); }
+  50% { box-shadow: 0 0 35px rgba(0,230,118,0.35); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes wave {
+  0%, 100% { height: 8px; }
+  50% { height: 20px; }
+}
+
+.audio-bar {
+  animation: wave 0.8s ease-in-out infinite;
+}
