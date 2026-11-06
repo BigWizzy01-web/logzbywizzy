@@ -1,8 +1,7 @@
 import type { ServiceItem, ServiceCategory } from "@/lib/catalog";
 import { formatNaira } from "@/lib/catalog";
 import { buildWhatsAppLink, inquiryMessage } from "@/lib/whatsapp";
-import { startPaystackCheckout } from "@/lib/payment";
-import { MessageCircle, CreditCard } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 function ServiceCard({
   item,
@@ -15,12 +14,6 @@ function ServiceCard({
   const inquiryLink = buildWhatsAppLink(
     inquiryMessage(item.name, categoryTitle)
   );
-
-  const handlePay = () => {
-    if (item.tier === "fixed" && item.price) {
-      void startPaystackCheckout(item.name, item.price);
-    }
-  };
 
   const isFixed = item.tier === "fixed" && item.price !== undefined;
 
@@ -77,25 +70,15 @@ function ServiceCard({
           </span>
         )}
 
-        {isFixed ? (
-          <button
-            onClick={handlePay}
-            className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
-          >
-            <CreditCard className="w-3.5 h-3.5" />
-            Pay & Order
-          </button>
-        ) : (
-          <a
-            href={inquiryLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
-          >
-            <MessageCircle className="w-3.5 h-3.5" />
-            Inquire
-          </a>
-        )}
+        <a
+          href={inquiryLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/30 hover:bg-accent hover:text-black transition-all text-xs font-bold text-accent"
+        >
+          <MessageCircle className="w-3.5 h-3.5" />
+          {isFixed ? "Order on WhatsApp" : "Inquire"}
+        </a>
       </div>
     </div>
   );
